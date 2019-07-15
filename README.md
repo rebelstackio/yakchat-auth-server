@@ -1,2 +1,3 @@
 # yakchat-auth-server
-JWT token server - connects to firebase to cache users/roles
+
+Autorization and Authentication REST server for [yakchat](https://github.com/rebelstackio/yakchat)

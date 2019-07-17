@@ -39,9 +39,9 @@ const signup = function _signup(req, res, role) {
 
 const login = function login(req, res) {
 	const path = req.path;
-	const un = req.body.username;
+	const un = req.body.email;
 	const pa = req.body.password;
-	muser.authenticate(un, pa, function(error, adgroups){
+	muser.authenticate(un, pa, function(error, roles){
 		if ( error ) {
 			LOGGER.error(error);
 			return RESPOND.notAuthorized(
@@ -51,7 +51,7 @@ const login = function login(req, res) {
 			);
 		} else {
 			const userData = {
-				"privileges": ""
+				"roles": roles
 			};
 			const jwt = E.Auth.encodeJWT(userData, process.env.JWT_SECRET);
 			res.set('Authorization', jwt);

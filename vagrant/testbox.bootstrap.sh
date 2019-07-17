@@ -168,6 +168,8 @@ service postgresql restart
 # JSON files for mock db
 touch /var/tmp/yakchat.users.json
 chmod 777 /var/tmp/yakchat.users.json
+echo '{ "users": [] }' >> "/var/tmp/yakchat.users.json"
+
 
 # TODO: iterate the deploy and import.json
 display Load DDL and sample data

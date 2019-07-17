@@ -1,21 +1,51 @@
 /* models/user/index.js */
 'use strict';
 
+const fs = require('fs');
+const file = '/var/tmp/yakchat.users.json';
+
+const {ExpError, EXPRESSIF_HTTP_CODES, EXPRESSIF_HTTP_TYPES} = require('@rebelstack-io/expressif')
+
 class UserModel {
 
 	constructor(){
 	}
 
-	authenticate(username, password, next){
-		if ( !username ) {
-			throw new TypeError('Parameter \'username\' is required');
+	authenticate(email, password, next) {
+		const db = require(file);
+		const exists = db.users.filter(u => u.email == email && u.password === password);
+		if ( exists.length ) {
+			const roles  = exists[0].roles;
+			return next(null, roles);
+		} else {
+			const err = new ExpError(EXPRESSIF_HTTP_TYPES.unauthorized, EXPRESSIF_HTTP_CODES.unauthorized, `Invalid credententials`)
+			err.code = EXPRESSIF_HTTP_TYPES.unauthorized;
+			return next(err);
 		}
+	}
 
-		if (!password) {
-			throw new TypeError('Parameter \'password\' is required');
+	signup(body, role, next) {
+		try {
+			const newuser = Object.assign({}, body, {roles : [ role ]});
+			const db = require(file);
+			const taken = db.users.filter(u => u.email == newuser.email || u.displayname === newuser.displayname);
+			if ( taken.length ){
+				const err = new ExpError(EXPRESSIF_HTTP_TYPES.conflict, EXPRESSIF_HTTP_CODES.conflict, `Email or displayname already taken`)
+				err.code = EXPRESSIF_HTTP_TYPES.conflict;
+				return next(err);
+			} else {
+				db.users.push(newuser);
+				fs.writeFile(file, JSON.stringify(db), ( err ) => {
+					if ( err ) {
+						return next(err);
+					} else {
+						return next(null);
+					}
+				});
+			}
+		} catch (error) {
+			return next(error);
 		}
-
-		return next(null, {ok: true});
 	}
 }
 

@@ -2,6 +2,36 @@
 
 Autorization and Authentication REST server for [yakchat](https://github.com/rebelstackio/yakchat)
 
+## Development
+
+1) Create the vagrant box( could take a while )
+
+	```sh
+	cd vagrant
+	vagrant up
+	```
+
+2) ssh into the vagrant box
+
+	```sh
+	vagrant ssh
+	```
+
+3) Install dependecies
+
+	```sh
+	cd yakchat-auth-server
+	npm install
+	```
+
+4) Run server
+
+	```sh
+	npm start
+	```
+
+	Server's URL: 192.168.86.6:8888 on linux. On windows should the same IP
+
 
 ## Endpoints
 

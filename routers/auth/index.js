@@ -14,6 +14,16 @@ const AuthRouter = function AuthRouter(auth) {
 			rxvalid: RX.NOT_APP_JSON | RX.NOT_ACCEPT_JSON,
 			validreq: 'login'
 		},
+		{
+			method: 'post', path: '/signup/operator', rprivs: null, mwares: [ cc.signupoperator ],
+			rxvalid: RX.NOT_APP_JSON | RX.NOT_ACCEPT_JSON,
+			validreq: 'signupoperator'
+		},
+		{
+			method: 'post', path: '/signup/client', rprivs: null, mwares: [ cc.signupclient ],
+			rxvalid: RX.NOT_APP_JSON | RX.NOT_ACCEPT_JSON,
+			validreq: 'signupclient'
+		},
 	];
 	const router = new Router({}, auth, jv);
 	router.addRoutes(routes);

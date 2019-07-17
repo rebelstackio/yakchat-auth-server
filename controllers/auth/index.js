@@ -4,11 +4,24 @@ const RESPOND = global.E.Respond;
 const User = require('models/user');
 const muser = new User();
 
+const signupoperator = function _signupoperator(req, res) {
+	return signup( req, res, 'operator')
+};
+
+const signupclient = function _signupclient(req, res) {
+	return signup( req, res, 'client')
+};
+
 /**
- * Authenticate endpoint
- * @param {*} req
- * @param {*} res
+ * Generic signup controller for a target role
+ * @param {object} req Express request object
+ * @param {object} res Express response object
+ * @param {string} role Role
  */
+const signup = function _signup(req, res, role) {
+	return RESPOND.success(res, req, {});
+};
+
 const login = function login(req, res) {
 	const path = req.path;
 	const un = req.body.username;
@@ -36,5 +49,7 @@ const login = function login(req, res) {
 };
 
 module.exports = {
-	login
+	login,
+	signupoperator,
+	signupclient
 }

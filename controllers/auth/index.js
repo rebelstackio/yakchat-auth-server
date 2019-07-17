@@ -19,7 +19,22 @@ const signupclient = function _signupclient(req, res) {
  * @param {string} role Role
  */
 const signup = function _signup(req, res, role) {
-	return RESPOND.success(res, req, {});
+	const path = req.path;
+	muser.signup(req.body, role, (err) => {
+		if ( err ) {
+			LOGGER.error(err);
+			return RESPOND.dbError(
+				res,
+				req,
+				err
+			);
+		} else {
+			let wrapper = RESPOND.wrapSuccessData({
+				"message": "You are successfully created your account",
+			}, path, true);
+			return RESPOND.success(res, req, wrapper);
+		}
+	});
 };
 
 const login = function login(req, res) {

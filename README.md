@@ -20,7 +20,9 @@ Autorization and Authentication REST server for [yakchat](https://github.com/reb
 
 ```json
 {
-
+	"displayname": "operator1",
+	"email": "op1@email.com",
+	"password": "12345"
 }
 ```
 
@@ -39,7 +41,10 @@ Autorization and Authentication REST server for [yakchat](https://github.com/reb
 
 ```json
 {
-
+	"displayname": "operator1",
+	"email": "op1@email.com",
+	"password": "12345",
+	"webpage":"http://www.test.com
 }
 ```
 
@@ -58,7 +63,7 @@ Autorization and Authentication REST server for [yakchat](https://github.com/reb
 
 ```json
 {
-    "username": "admin",
-    "password": "<pass>"
+	"username": "admin",
+	"password": "<pass>"
 }
 ```

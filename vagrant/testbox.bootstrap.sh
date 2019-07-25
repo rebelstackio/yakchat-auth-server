@@ -165,6 +165,23 @@ EOF
 # Restart PostgreSQL for good measure
 service postgresql restart
 
+# JSON files for mock db
+touch /var/tmp/yakchat.users.json
+chmod 777 /var/tmp/yakchat.users.json
+echo '{ "users": [] }' >> "/var/tmp/yakchat.users.json"
+
+# Install yarn #FIXME: Weird error with npm
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install yarn
+
+# Update npm
+sudo npm install -g npm
+sudo chown -R vagrant ~/.npm
+
+# Install npm dependecies
+cd /home/vagrant/yakchat-auth-server
+yarn install
 
 # TODO: iterate the deploy and import.json
 display Load DDL and sample data

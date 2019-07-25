@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "d91d0564-9c43-420a-b268-722b4884f887",
+		"name": "Yakchat Auth",
+		"description": "Yakchat's authorization and authentication endpoins",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Signup Operator",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"displayname\": \"jegj57\",\n\t\"email\": \"jegj57@gmail.com\",\n\t\"password\": \"12345\"\n}"
+				},
+				"url": {
+					"raw": "http://{{VAGRANTIP}}/api/v1/auth/signup/operator",
+					"protocol": "http",
+					"host": [
+						"{{VAGRANTIP}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signup",
+						"operator"
+					]
+				},
+				"description": "Signup request for operators"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"client@gmail.com\",\n\t\"password\": \"12345\"\n}"
+				},
+				"url": {
+					"raw": "http://{{VAGRANTIP}}/api/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"{{VAGRANTIP}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				},
+				"description": "Signup request for operators"
+			},
+			"response": []
+		},
+		{
+			"name": "Signup Client",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"displayname\": \"client1\",\n\t\"email\": \"client@gmail.com\",\n\t\"password\": \"12345\",\n\t\"webpage\":\"http://www.web.com\"\n}"
+				},
+				"url": {
+					"raw": "http://{{VAGRANTIP}}/api/v1/auth/signup/client",
+					"protocol": "http",
+					"host": [
+						"{{VAGRANTIP}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signup",
+						"client"
+					]
+				},
+				"description": "Signup request for operators"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "37646943-0e9c-463a-b01a-81aa2ed3c6e8",
+			"key": "VAGRANTIP",
+			"value": "192.168.86.6:8888",
+			"type": "string"
+		}
+	]
+}

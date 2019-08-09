@@ -2,6 +2,12 @@
 'use strict';
 const RESPOND = global.E.Respond;
 const User = require('models/user');
+const admin = require('firebase-admin');
+const adminFile = require('../../firebase-admin.json');
+admin.initializeApp({
+	credential: admin.credential.cert(adminFile)
+}
+);
 const muser = new User();
 
 const signupoperator = function _signupoperator(req, res) {
@@ -41,7 +47,7 @@ const login = function login(req, res) {
 	const path = req.path;
 	const un = req.body.email;
 	const pa = req.body.password;
-	muser.authenticate(un, pa, function(error, roles){
+	muser.authenticate(un, pa, function(error, resp){
 		if ( error ) {
 			LOGGER.error(error);
 			return RESPOND.notAuthorized(
@@ -51,14 +57,23 @@ const login = function login(req, res) {
 			);
 		} else {
 			const userData = {
-				"roles": roles
+				"roles": resp.roles,
+				"displayname": resp.displayname,
+				"email": resp.email
 			};
-			const jwt = E.Auth.encodeJWT(userData, process.env.JWT_SECRET);
-			res.set('Authorization', jwt);
-			let wrapper = RESPOND.wrapSuccessData({
-				"message": "You are logged",
-			}, path, true);
-			return RESPOND.success(res, req, wrapper);
+			// ask firebase to create the token
+			admin.auth().createCustomToken(resp.id, userData)
+			.then(function(jwt) {
+				// Send token back to client
+				res.set('Authorization', jwt);
+				let wrapper = RESPOND.wrapSuccessData({
+					"message": "You are logged",
+				}, path, true);
+				return RESPOND.success(res, req, wrapper);
+			})
+			.catch(function(error) {
+				console.log('Error creating custom token:', error);
+			});
 		}
 	});
 };

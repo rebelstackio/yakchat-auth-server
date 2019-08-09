@@ -32,6 +32,12 @@ Autorization and Authentication REST server for [yakchat](https://github.com/reb
 
 	Server's URL: 192.168.86.6:8888 on linux. On windows should the same IP
 
+## Firebase admin
+add firebase-admin.json to the root
+it can be found:
+[click on Generate new private key] (https://console.firebase.google.com/project/_/settings/serviceaccounts/adminsdk) 
+
+
 
 ## Endpoints
 

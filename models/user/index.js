@@ -26,8 +26,8 @@ class UserModel {
 		const db = require(file);
 		const exists = db.users.filter(u => u.email == email && u.password === password);
 		if ( exists.length ) {
-			const roles  = exists[0].roles;
-			return next(null, roles);
+			const {roles, displayname, id, email}  = exists[0];
+			return next(null, {roles, displayname, id, email});
 		} else {
 			const err = new ExpError(EXPRESSIF_HTTP_TYPES.unauthorized, EXPRESSIF_HTTP_CODES.unauthorized, `Invalid credententials`)
 			err.code = EXPRESSIF_HTTP_TYPES.unauthorized;

@@ -41,3 +41,6 @@ node_modules/
 
 # Vagrant
 .vagrant
+
+#firebase service account
+firebase-admin.json

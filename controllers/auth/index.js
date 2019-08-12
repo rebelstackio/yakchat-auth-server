@@ -47,7 +47,7 @@ const login = function login(req, res) {
 	const path = req.path;
 	const un = req.body.email;
 	const pa = req.body.password;
-	muser.authenticate(un, pa, function(error, resp){
+	muser.authenticate(un, pa, function(error, data){
 		if ( error ) {
 			LOGGER.error(error);
 			return RESPOND.notAuthorized(
@@ -57,12 +57,12 @@ const login = function login(req, res) {
 			);
 		} else {
 			const userData = {
-				"roles": resp.roles,
-				"displayname": resp.displayname,
-				"email": resp.email
+				"roles": data.roles,
+				"displayname": data.displayname,
+				"email": data.email
 			};
 			// ask firebase to create the token
-			admin.auth().createCustomToken(resp.id, userData)
+			admin.auth().createCustomToken(data.id, userData)
 			.then(function(jwt) {
 				// Send token back to client
 				res.set('Authorization', jwt);
